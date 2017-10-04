@@ -1,0 +1,43 @@
+<link rel="import" href="../../bower_components/polymer/polymer-element.html">
+
+<script src="https://test.nuskin.com/js/nsjs/dist/aem-bundle.js"></script>
+
+<dom-module id="lib-element">
+    <script>
+        /**
+         * @customElement
+         * @polymer
+         */
+        class LibElement extends Polymer.Element {
+            constructor() {
+                super();
+                console.log("In LibElement constructor");
+
+            }
+
+
+            ready() {
+                super.ready();
+                console.log("In lib-element ready:",nuskin.configuration);
+
+                    nuskin.init({
+                        country:"US",
+                        baseUrl:"https://test.nuskin.com"
+                    });
+                    console.log("nuskin.configuration:",nuskin.configuration);
+
+            }
+            static get is() { return 'lib-element'; }
+            static get properties() {
+                return {
+                    prop1: {
+                        type: String,
+                        value: 'Test Element!'
+                    }
+                };
+            }
+        }
+
+        window.customElements.define(LibElement.is, LibElement);
+    </script>
+</dom-module>

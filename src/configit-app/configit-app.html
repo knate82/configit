@@ -1,0 +1,67 @@
+<link rel="import" href="../../bower_components/polymer/polymer-element.html">
+<link rel="import" href="test.html">
+<link rel="import" href="lib.html">
+
+<dom-module id="configit-app">
+  <template>
+    <style>
+      :host {
+        display: block;
+      }
+    </style>
+    <lib-element></lib-element>
+    <h2>Hello [[prop1]]!</h2>
+    <test-element id="test" prop1="{{childValue}}"></test-element>
+    <test-element id="test" prop1="something else"></test-element>
+    <div>Configit Prop1 {{prop1}}</div>
+    <div>Configit Child Value {{childValue}}</div>
+
+  </template>
+
+  <script>
+    /**
+     * @customElement
+     * @polymer
+     */
+    class ConfigitApp extends Polymer.Element {
+      constructor() {
+          super();
+          console.log("In Configit constructor");
+      }
+
+      connectedCallback() {
+          super.connectedCallback();
+          console.log("In connectedCallback of ConfigitApp.");
+      }
+
+      ready() {
+          super.ready();
+          console.log("In ConfigitApp ready.");
+          var that = this;
+          $.subscribe('someEvent', function() {
+              that.prop1 = "I GOT SOME EVENT!";
+          })
+      }
+
+      static get is() { return 'configit-app'; }
+      static get properties() {
+        return {
+          prop1: {
+            type: String,
+            value: 'configit-app'
+          },
+          childValue: {
+              type: String,
+              value: 'child value'
+          }
+        };
+      }
+
+      testClicked() {
+          console.log("test clicked!!!");
+      }
+    }
+
+    window.customElements.define(ConfigitApp.is, ConfigitApp);
+  </script>
+</dom-module>

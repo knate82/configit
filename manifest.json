@@ -1,0 +1,7 @@
+{
+  "name": "configit",
+  "short_name": "configit",
+  "description": "Polymer configuration util",
+  "start_url": "/",
+  "display": "standalone"
+}

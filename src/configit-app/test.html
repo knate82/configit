@@ -1,0 +1,64 @@
+<link rel="import" href="../../bower_components/polymer/polymer-element.html">
+<link rel="import" href="lib.html">
+
+<dom-module id="test-element">
+    <template>
+        <style>
+            :host {
+                display: block;
+            }
+        </style>
+        <lib-element></lib-element>
+        <h2>Test Element!</h2>
+        <div>Test Element Prop1 {{prop1}}</div>
+        <button on-click="handleClick">Click Me</button>
+    </template>
+
+    <script>
+        /**
+         * @customElement
+         * @polymer
+         */
+        class TestElement extends Polymer.Element {
+            constructor() {
+                super();
+                console.log("In TestElement constructor prop1:",this.prop1);
+            }
+
+            connectedCallback() {
+                super.connectedCallback();
+                console.log("In connectedCallback of TestElement. prop1:"+this.prop1);
+            }
+
+            ready() {
+                super.ready();
+                console.log("In TestElement ready prop1:",this.prop1);
+                this.addEventListener('click', function(e) {
+                    console.log("TestElement clicked! e:",e+" prop1:"+this.prop1+" this:",this);
+                });
+                var that = this;
+                $.subscribe('someEvent', function() {
+                    that.prop1 = "SOME EVENT HAPPENED!";
+                })
+            }
+            static get is() { return 'test-element'; }
+            static get properties() {
+                return {
+                    prop1: {
+                        type: String,
+                        value: 'Test Element!'
+                    }
+                };
+            }
+
+            handleClick() {
+                console.log("Clicked the TestElement button!");
+                this.prop1 = "Clicked the button!";
+                $.publish('someEvent');
+
+            }
+        }
+
+        window.customElements.define(TestElement.is, TestElement);
+    </script>
+</dom-module>
