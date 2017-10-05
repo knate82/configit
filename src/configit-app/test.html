@@ -45,12 +45,20 @@
 
                 var that = this;
                 console.log(document.location.pathname);
+                /*
                 fetch("src/configit-app/bla.html").then(function(response) {
                     return response.text();
                 }).then(function(text) {
                     console.log("text:",text);
                     that.$.stuff.innerHTML = text;
                 });
+                */
+
+                Polymer.importHref("src/configit-app/bla.html", (e) => {
+                    if (e.target.import.body) {
+                        this.$.stuff.appendChild(e.target.import.body);
+                    }
+                })
             }
             static get is() { return 'test-element'; }
             static get properties() {
