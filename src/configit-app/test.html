@@ -1,5 +1,5 @@
 <link rel="import" href="../../bower_components/polymer/polymer-element.html">
-<link rel="import" href="lib.html">
+<link rel="import" href="../../bower_components/polymer/lib/utils/import-href.html">
 
 <dom-module id="test-element">
     <template>
@@ -8,8 +8,8 @@
                 display: block;
             }
         </style>
-        <lib-element></lib-element>
         <h2>Test Element!</h2>
+        <div id="stuff"></div>
         <div>Test Element Prop1 {{prop1}}</div>
         <button on-click="handleClick">Click Me</button>
     </template>
@@ -39,7 +39,18 @@
                 var that = this;
                 $.subscribe('someEvent', function() {
                     that.prop1 = "SOME EVENT HAPPENED!";
-                })
+                });
+
+                console.log("Polymer:",Polymer.importHref);
+
+                var that = this;
+                console.log(document.location.pathname);
+                fetch("src/configit-app/bla.html").then(function(response) {
+                    return response.text();
+                }).then(function(text) {
+                    console.log("text:",text);
+                    that.$.stuff.innerHTML = text;
+                });
             }
             static get is() { return 'test-element'; }
             static get properties() {

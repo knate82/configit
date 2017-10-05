@@ -1,0 +1,19 @@
+<link rel="import" href="../../bower_components/polymer/polymer-element.html">
+
+<dom-module id="easy-el">
+    <template>
+        Easy element [[message]]
+    </template>
+    <script>
+
+        class EasyEl extends Polymer.Element {
+            static get is() { return "easy-el"; }
+            static get properties() {
+                return {
+                    message: String
+                }
+            }
+        }
+        window.customElements.define(EasyEl.is, EasyEl);
+    </script>
+</dom-module>

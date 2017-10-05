@@ -3,6 +3,9 @@
 <script src="https://test.nuskin.com/js/nsjs/dist/aem-bundle.js"></script>
 
 <dom-module id="lib-element">
+    <template>
+        Some stuff goes here
+    </template>
     <script>
         /**
          * @customElement
@@ -15,14 +18,13 @@
 
             }
 
-
             ready() {
                 super.ready();
                 console.log("In lib-element ready:",nuskin.configuration);
 
                     nuskin.init({
-                        country:"US",
-                        baseUrl:"https://test.nuskin.com"
+                        country:this.country,
+                        baseUrl:this.baseUrl
                     });
                     console.log("nuskin.configuration:",nuskin.configuration);
 
@@ -30,9 +32,13 @@
             static get is() { return 'lib-element'; }
             static get properties() {
                 return {
-                    prop1: {
+                    country: {
                         type: String,
-                        value: 'Test Element!'
+                        value: 'US'
+                    },
+                    baseUrl: {
+                        type: String,
+                        value: 'https://test.nuskin.com'
                     }
                 };
             }
